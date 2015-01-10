@@ -16,12 +16,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     login.cpp \
-    newserver.cpp
+    newserver.cpp \
+    editserver.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
-    newserver.h
+    newserver.h \
+    editserver.h
 
 FORMS    += mainwindow.ui \
     login.ui \
-    newserver.ui
+    newserver.ui \
+    editserver.ui

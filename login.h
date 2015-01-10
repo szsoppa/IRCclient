@@ -21,8 +21,13 @@ public:
 private slots:
     void on_AddServerButton_clicked();
 
+    void on_EditServerButton_clicked();
+
+    void on_RemoveServerButton_clicked();
+
 private:
     Ui::Login *ui;
+    void add_servers_to_list();
 };
 
 #endif // LOGIN_H
