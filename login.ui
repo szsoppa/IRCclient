@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>798</width>
-    <height>614</height>
+    <width>530</width>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -82,7 +82,10 @@
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="QPushButton" name="ConnectToServerButton">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="font">
             <font>
              <pointsize>15</pointsize>
@@ -90,6 +93,18 @@
            </property>
            <property name="text">
             <string>Connect</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="RegisterButton">
+           <property name="font">
+            <font>
+             <pointsize>15</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Register</string>
            </property>
           </widget>
          </item>
@@ -119,7 +134,7 @@
         <widget class="QListWidget" name="ServerListWidget"/>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="AddServerButton">
          <property name="font">
           <font>
            <pointsize>15</pointsize>
@@ -131,7 +146,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="EditServerButton">
          <property name="font">
           <font>
            <pointsize>15</pointsize>
@@ -143,7 +158,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="RemoveServerButton">
          <property name="font">
           <font>
            <pointsize>15</pointsize>
@@ -161,9 +176,9 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>pushButton_3</tabstop>
+  <tabstop>AddServerButton</tabstop>
+  <tabstop>EditServerButton</tabstop>
+  <tabstop>RemoveServerButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

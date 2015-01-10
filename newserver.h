@@ -2,8 +2,11 @@
 #define NEWSERVER_H
 
 #include <QDialog>
-#include "login.h"
+#include <QString>
+#include <QFile>
+#include <QTextStream>
 #include <QDebug>
+#include <QMessageBox>
 
 namespace Ui {
 class NewServer;
@@ -16,6 +19,10 @@ class NewServer : public QDialog
 public:
     explicit NewServer(QWidget *parent = 0);
     ~NewServer();
+
+    // custom methods
+    QString getServerName();
+    bool validate_data();
 
 private slots:
     void on_CreateServerButton_clicked();

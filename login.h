@@ -2,7 +2,7 @@
 #define LOGIN_H
 
 #include <QDialog>
-#include "newserver.h"
+#include <newserver.h>
 
 namespace Ui {
 class Login;
@@ -19,7 +19,7 @@ public:
     void createNewItem(const QString & name);
 
 private slots:
-    void on_pushButton_clicked();
+    void on_AddServerButton_clicked();
 
 private:
     Ui::Login *ui;

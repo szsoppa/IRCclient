@@ -1,6 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 #include "mainwindow.h"
+#include <QDebug>
 
 Login::Login(QWidget *parent) :
     QDialog(parent),
@@ -20,9 +21,14 @@ void Login::createNewItem(const QString & name)
     ui->ServerListWidget->addItem(name);
 }
 
-void Login::on_pushButton_clicked()
+void Login::on_AddServerButton_clicked()
 {
     NewServer window;
-    window.setModal(true);
-    window.exec();
+    window.setModal(false);
+    if( window.exec() )
+        qDebug() << "Gitarka";
+    else
+        qDebug() << "Lipda";
+
+    ui->ServerListWidget->addItem(window.getServerName());
 }
