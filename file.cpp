@@ -14,7 +14,7 @@ void File::insert_data(QString server_name, QString server_adress, QString serve
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append );
     QTextStream out(&file);
     out << server_name <<',' << server_adress << ',';
-    out << server_port << '\n';
+    out << server_port << ',' << '\n';
     file.close();
 }
 
@@ -31,7 +31,7 @@ void File::edit_data(QString pattern, QString server_name, QString server_adress
             if(!line.contains(pattern))
                 s.append(line + "\n");
             else
-                s.append(server_name+','+server_adress+','+server_port+'\n');
+                s.append(server_name+','+server_adress+','+server_port+','+'\n');
         }
         file.resize(0);
         t << s;
@@ -58,13 +58,58 @@ void File::remove_data(QString item)
     }
 }
 
-vector<QString> File::get_data()
+map<QString, QString> File::get_row(QString pattern)
+{
+    map<QString, QString> row;
+    QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QString server_name;
+        QTextStream t(&file);
+        while(!t.atEnd())
+        {
+            QString line = t.readLine();
+            for(int i=0;;i++)
+            {
+                if (line[i] == ',')
+                {
+                    server_name = line;
+                    server_name.truncate(i);
+                    break;
+                }
+            }
+            if (server_name.compare(pattern) == 0)
+            {
+                vector<QString> list;
+                QString temp;
+                for( QString::iterator it=line.begin(); it!=line.end(); ++it)
+                {
+                    if(*it == ',')
+                    {
+                        list.push_back(temp);
+                        temp.clear();
+                        continue;
+                    }
+                    temp.push_back(*it);
+                }
+                row["server"] = list[0];
+                row["adress"] = list[1];
+                row["port"] = list[2];
+                file.close();
+                return row;
+            }
+        }
+    }
+    file.close();
+    return row;
+}
+
+vector<QString> File::get_all_data()
 {
     vector<QString> list;
     QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QString s;
         QTextStream t(&file);
         while(!t.atEnd())
         {

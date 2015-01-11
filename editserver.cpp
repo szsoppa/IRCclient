@@ -7,7 +7,11 @@ EditServer::EditServer(QWidget *parent, QString item) :
 {
     ui->setupUi(this);
     this->item = item;
-    ui->ServerNameEdit->setText(this->item);
+    File file;
+    map<QString, QString> row = file.get_row(this->item);
+    ui->ServerNameEdit->setText(row["server"]);
+    ui->ServerAdressEdit->setText(row["adress"]);
+    ui->ServerPortBox->setValue(QString(row["port"]).toInt());
 }
 
 EditServer::~EditServer()
