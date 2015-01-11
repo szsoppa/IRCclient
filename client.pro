@@ -18,15 +18,19 @@ SOURCES += main.cpp\
     login.cpp \
     newserver.cpp \
     editserver.cpp \
-    file.cpp
+    file.cpp \
+    register.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
     newserver.h \
     editserver.h \
-    file.h
+    file.h \
+    message.h \
+    register.h
 
 FORMS    += mainwindow.ui \
     login.ui \
     newserver.ui \
-    editserver.ui
+    editserver.ui \
+    register.ui

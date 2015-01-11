@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <newserver.h>
 #include <QTcpSocket>
+#include "message.h"
 
 namespace Ui {
 class Login;
@@ -27,6 +28,8 @@ private slots:
     void on_RemoveServerButton_clicked();
 
     void on_ConnectToServerButton_clicked();
+
+    void on_RegisterButton_clicked();
 
 private:
     Ui::Login *ui;

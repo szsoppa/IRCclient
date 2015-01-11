@@ -74,6 +74,7 @@ void Login::on_ConnectToServerButton_clicked()
             socket->write(message.toStdString().c_str());
             socket->waitForBytesWritten(500);
             socket->waitForReadyRead(500);
+            
 
         }
         socket->close();
