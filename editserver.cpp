@@ -22,7 +22,7 @@ void EditServer::set_current_item(QString item)
 
 void EditServer::on_CancelButton_clicked()
 {
-
+    this->close();
 }
 
 bool EditServer::validate_data()
@@ -66,6 +66,6 @@ void EditServer::on_AcceptButton_clicked()
             t << s;
             file.close();
         }
+        this->close();
     }
-    this->close();
 }

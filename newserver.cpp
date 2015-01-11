@@ -50,7 +50,7 @@ bool NewServer::validate_data()
             counter++;
     }
     qDebug() << counter << "   " << server_address.length();
-    if (counter != 3 || server_address.length()+1 < 8)
+    if (counter != 3 || server_address.length()+1 < 8 || server_address.length()+1 > 16)
     {
         messageBox.critical(0,"Wrong data!","You have entered wrong server data format");
         return false;

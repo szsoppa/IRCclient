@@ -28,15 +28,17 @@ void Login::on_AddServerButton_clicked()
     NewServer window;
     window.setModal(false);
     window.exec();
-
     ui->ServerListWidget->addItem(window.getServerName());
 }
 
 void Login::on_EditServerButton_clicked()
 {
-    EditServer window(this,ui->ServerListWidget->currentItem()->text());
-    window.setModal(false);
-    window.exec();
+    if(ui->ServerListWidget->count() != 0 && ui->ServerListWidget->currentRow() != -1)
+    {
+        EditServer window(this,ui->ServerListWidget->currentItem()->text());
+        window.setModal(false);
+        window.exec();
+    }
 }
 
 void Login::add_servers_to_list()
@@ -81,4 +83,19 @@ void Login::on_RemoveServerButton_clicked()
         file.close();
     }
     ui->ServerListWidget->takeItem(ui->ServerListWidget->row(ui->ServerListWidget->currentItem()));
+}
+
+void Login::on_ConnectToServerButton_clicked()
+{
+    socket = new QTcpSocket(this);
+    /*socket->connectToHost(ui->textLog->toPlainText(),4000);
+    if( socket->waitForConnected(500) )
+    {
+        ui->textLog->append("Connected");
+
+        socket->waitForBytesWritten(10);
+        socket->waitForReadyRead(30);
+
+        ui->textLog->append(socket->readAll());
+    }/*
 }
