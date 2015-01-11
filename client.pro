@@ -17,12 +17,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     login.cpp \
     newserver.cpp \
-    editserver.cpp
+    editserver.cpp \
+    file.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
     newserver.h \
-    editserver.h
+    editserver.h \
+    file.h
 
 FORMS    += mainwindow.ui \
     login.ui \
