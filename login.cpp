@@ -38,56 +38,29 @@ void Login::on_EditServerButton_clicked()
         EditServer window(this,ui->ServerListWidget->currentItem()->text());
         window.setModal(false);
         window.exec();
+        add_servers_to_list();
     }
 }
 
 void Login::add_servers_to_list()
 {
-    QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
-    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QString s;
-        QTextStream t(&file);
-        while(!t.atEnd())
-        {
-            QString line = t.readLine();
-            for(int i=0;;i++)
-            {
-                if (line[i] == ',')
-                {
-                    line.truncate(i);
-                    break;
-                }
-            }
-            ui->ServerListWidget->addItem(line);
-        }
-        file.close();
-    }
+    File file;
+    ui->ServerListWidget->clear();
+    vector<QString> list = file.get_data();
+    for (vector<QString>::iterator it=list.begin(); it!=list.end(); it++)
+        ui->ServerListWidget->addItem(*it);
 }
 
 void Login::on_RemoveServerButton_clicked()
 {
-    QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
-    if(file.open(QIODevice::ReadWrite | QIODevice::Text))
-    {
-        QString s;
-        QTextStream t(&file);
-        while(!t.atEnd())
-        {
-            QString line = t.readLine();
-            if(!line.contains(ui->ServerListWidget->currentItem()->text()))
-                s.append(line + "\n");
-        }
-        file.resize(0);
-        t << s;
-        file.close();
-    }
+    File file;
+    file.remove_data(ui->ServerListWidget->currentItem()->text());
     ui->ServerListWidget->takeItem(ui->ServerListWidget->row(ui->ServerListWidget->currentItem()));
 }
 
 void Login::on_ConnectToServerButton_clicked()
 {
-    socket = new QTcpSocket(this);
+    QTcpSocket *socket = new QTcpSocket(this);
     /*socket->connectToHost(ui->textLog->toPlainText(),4000);
     if( socket->waitForConnected(500) )
     {
@@ -97,5 +70,5 @@ void Login::on_ConnectToServerButton_clicked()
         socket->waitForReadyRead(30);
 
         ui->textLog->append(socket->readAll());
-    }/*
+    }*/
 }

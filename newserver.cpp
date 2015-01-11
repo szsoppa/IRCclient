@@ -22,12 +22,9 @@ void NewServer::on_CreateServerButton_clicked()
 {
     if(validate_data())
     {
-        QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
-        file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append );
-        QTextStream out(&file);
-        out << ui->ServerNameEdit->text() <<',' << ui->ServerAdressEdit->text() << ',';
-        out << QString::number(ui->ServerPortBox->value()) << '\n';
-        file.close();
+        File file;
+        file.insert_data(ui->ServerNameEdit->text(), ui->ServerAdressEdit->text(),
+                         QString::number(ui->ServerPortBox->value()));
         this->close();
     }
 }

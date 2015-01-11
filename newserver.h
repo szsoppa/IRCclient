@@ -3,10 +3,10 @@
 
 #include <QDialog>
 #include <QString>
-#include <QFile>
 #include <QTextStream>
 #include <QDebug>
 #include <QMessageBox>
+#include "file.h"
 
 namespace Ui {
 class NewServer;

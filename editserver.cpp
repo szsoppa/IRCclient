@@ -48,7 +48,10 @@ void EditServer::on_AcceptButton_clicked()
 {
     if(validate_data())
     {
-        QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
+        File file;
+        file.edit_data(this->item, ui->ServerNameEdit->text(), ui->ServerAdressEdit->text(),
+                       QString::number(ui->ServerPortBox->value()));
+        /*QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
         if(file.open(QIODevice::ReadWrite | QIODevice::Text))
         {
             QString s;
@@ -65,7 +68,7 @@ void EditServer::on_AcceptButton_clicked()
             file.resize(0);
             t << s;
             file.close();
-        }
+        }*/
         this->close();
     }
 }

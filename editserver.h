@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <QDebug>
-#include <QFile>
+#include "file.h"
 #include <QMessageBox>
 
 namespace Ui {
