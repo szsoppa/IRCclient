@@ -22,8 +22,7 @@ void NewServer::on_CreateServerButton_clicked()
 {
     if(validate_data())
     {
-        File file;
-        file.insert_data(ui->ServerNameEdit->text(), ui->ServerAdressEdit->text(),
+        File::insert_data(ui->ServerNameEdit->text(), ui->ServerAdressEdit->text(),
                          QString::number(ui->ServerPortBox->value()));
         this->close();
     }

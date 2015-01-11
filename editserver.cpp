@@ -7,8 +7,7 @@ EditServer::EditServer(QWidget *parent, QString item) :
 {
     ui->setupUi(this);
     this->item = item;
-    File file;
-    map<QString, QString> row = file.get_row(this->item);
+    map<QString, QString> row = File::get_row(this->item);
     ui->ServerNameEdit->setText(row["server"]);
     ui->ServerAdressEdit->setText(row["adress"]);
     ui->ServerPortBox->setValue(QString(row["port"]).toInt());
@@ -52,27 +51,8 @@ void EditServer::on_AcceptButton_clicked()
 {
     if(validate_data())
     {
-        File file;
-        file.edit_data(this->item, ui->ServerNameEdit->text(), ui->ServerAdressEdit->text(),
+        File::edit_data(this->item, ui->ServerNameEdit->text(), ui->ServerAdressEdit->text(),
                        QString::number(ui->ServerPortBox->value()));
-        /*QFile file(QCoreApplication::applicationDirPath () + "/servers.txt");
-        if(file.open(QIODevice::ReadWrite | QIODevice::Text))
-        {
-            QString s;
-            QTextStream t(&file);
-            while(!t.atEnd())
-            {
-                QString line = t.readLine();
-                if(!line.contains(this->item))
-                    s.append(line + "\n");
-                else
-                    s.append(ui->ServerNameEdit->text()+','+ui->ServerAdressEdit->text()+','
-                             +QString::number(ui->ServerPortBox->value()));
-            }
-            file.resize(0);
-            t << s;
-            file.close();
-        }*/
         this->close();
     }
 }

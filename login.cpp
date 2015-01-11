@@ -44,9 +44,8 @@ void Login::on_EditServerButton_clicked()
 
 void Login::add_servers_to_list()
 {
-    File file;
     ui->ServerListWidget->clear();
-    vector<QString> list = file.get_all_data();
+    vector<QString> list = File::get_all_data();
     for (vector<QString>::iterator it=list.begin(); it!=list.end(); it++)
         ui->ServerListWidget->addItem(*it);
 }
@@ -55,8 +54,7 @@ void Login::on_RemoveServerButton_clicked()
 {
     if(ui->ServerListWidget->count() != 0 && ui->ServerListWidget->currentRow() != -1)
     {
-        File file;
-        file.remove_data(ui->ServerListWidget->currentItem()->text());
+        File::remove_data(ui->ServerListWidget->currentItem()->text());
         ui->ServerListWidget->takeItem(ui->ServerListWidget->row(ui->ServerListWidget->currentItem()));
     }
 }
