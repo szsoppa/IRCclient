@@ -80,11 +80,9 @@ void Login::on_ConnectToServerButton_clicked()
         qDebug() << response;
         if (response.toInt() == message)
         {
-                MainWindow window;
-                window.show();
-                while(true)
-                {
-                }
+            emit loginAccepted();
+            socket->close();
+            this->close();
         }
         socket->close();
     }

@@ -20,6 +20,9 @@ public:
 
     void createNewItem(const QString & name);
 
+signals:
+    void loginAccepted();
+
 private slots:
     void on_AddServerButton_clicked();
 
