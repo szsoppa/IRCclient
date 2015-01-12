@@ -1,13 +1,7 @@
 #ifndef FILE_H
 #define FILE_H
 
-#include <QFile>
-#include <QString>
-#include <QCoreApplication>
-#include <QTextStream>
-#include <QDebug>
-#include <vector>
-#include <map>
+#include "headers.h"
 
 using namespace std;
 

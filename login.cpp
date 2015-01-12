@@ -66,15 +66,25 @@ void Login::on_ConnectToServerButton_clicked()
         map<QString, QString> data = File::get_row(ui->ServerListWidget->currentItem()->text());
         QTcpSocket *socket = new QTcpSocket(this);
         socket->connectToHost(data["adress"],QString(data["port"]).toInt());
-        if( socket->waitForConnected(500))
+        if( socket->waitForConnected())
         {
             Message_type type = SIGNIN;
-            QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+',';
+            QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+','+ui->NicknameEdit->text()+','+'\n';
             qDebug() << message;
             socket->write(message.toStdString().c_str());
-            socket->waitForBytesWritten(500);
-            socket->waitForReadyRead(500);
-
+            socket->waitForBytesWritten();
+            socket->waitForReadyRead();
+        }
+        Message_respond message = OK;
+        QString response = socket->readAll();
+        qDebug() << response;
+        if (response.toInt() == message)
+        {
+                MainWindow window;
+                window.show();
+                while(true)
+                {
+                }
         }
         socket->close();
     }
@@ -82,5 +92,16 @@ void Login::on_ConnectToServerButton_clicked()
 
 void Login::on_RegisterButton_clicked()
 {
-
+    if(ui->ServerListWidget->count() != 0 && ui->ServerListWidget->currentRow() != -1)
+    {
+        Register window;
+        window.setModal(false);
+        window.set_data(File::get_row(ui->ServerListWidget->currentItem()->text()));
+        window.exec();
+    }
+    else
+    {
+        QMessageBox message_box;
+        message_box.critical(0,"No server error!","Please choose server on which you want to register");
+    }
 }

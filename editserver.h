@@ -1,11 +1,8 @@
 #ifndef EDITSERVER_H
 #define EDITSERVER_H
 
-#include <QDialog>
-#include <QString>
-#include <QDebug>
 #include "file.h"
-#include <QMessageBox>
+#include "headers.h"
 
 namespace Ui {
 class EditServer;

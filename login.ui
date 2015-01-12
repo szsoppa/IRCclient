@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>455</height>
+    <width>821</width>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="NicknameEdit"/>
+            <widget class="QLineEdit" name="NicknameEdit">
+             <property name="maxLength">
+              <number>15</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -54,7 +58,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="LoginEdit"/>
+            <widget class="QLineEdit" name="LoginEdit">
+             <property name="maxLength">
+              <number>15</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -74,6 +82,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="PasswordEdit">
+             <property name="maxLength">
+              <number>8</number>
+             </property>
              <property name="echoMode">
               <enum>QLineEdit::Password</enum>
              </property>

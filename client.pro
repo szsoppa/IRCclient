@@ -27,6 +27,7 @@ HEADERS  += mainwindow.h \
     editserver.h \
     file.h \
     message.h \
+    headers.h \
     register.h
 
 FORMS    += mainwindow.ui \

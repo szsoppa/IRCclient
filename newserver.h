@@ -1,11 +1,7 @@
 #ifndef NEWSERVER_H
 #define NEWSERVER_H
 
-#include <QDialog>
-#include <QString>
-#include <QTextStream>
-#include <QDebug>
-#include <QMessageBox>
+#include "headers.h"
 #include "file.h"
 
 namespace Ui {
