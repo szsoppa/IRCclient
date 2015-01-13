@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>767</width>
-    <height>644</height>
+    <height>675</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Wish you great time chatting!!!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="listWidget">
+   <widget class="QListWidget" name="UserList">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -53,15 +53,15 @@ p, li { white-space: pre-wrap; }
       <x>10</x>
       <y>580</y>
       <width>751</width>
-      <height>91</height>
+      <height>71</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QTextEdit" name="textServerInfo"/>
+      <widget class="QTextEdit" name="MessageEdit"/>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonConnect">
+      <widget class="QPushButton" name="SendButton">
        <property name="text">
         <string>Send</string>
        </property>

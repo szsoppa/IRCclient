@@ -1,0 +1,38 @@
+#include "thread.h"
+
+Thread::Thread()
+{
+
+}
+
+Thread::~Thread()
+{
+
+}
+
+void Thread::run()
+{
+    while(true)
+    {
+        socket->connectToHost(data["adress"],QString(data["port"]).toInt());
+        if( socket->waitForConnected())
+        {
+            int type = Message::Resquest::SIGNIN;
+            QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+','+ui->NicknameEdit->text()+','+'\n';
+            socket->write(message.toStdString().c_str());
+            socket->waitForBytesWritten();
+            socket->waitForReadyRead();
+            int respond = Message::Respond::OK;
+            QString response = socket->readAll();
+            qDebug() << response;
+            if (response.toInt() == respond)
+            {
+                emit loginAccepted();
+                socket->close();
+                this->close();
+            }
+            socket->close();
+        }
+    }
+}
+

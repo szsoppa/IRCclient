@@ -40,6 +40,11 @@ void Login::on_EditServerButton_clicked()
         window.exec();
         add_servers_to_list();
     }
+    else
+    {
+        QMessageBox message_box;
+        message_box.warning(0,"Wrong data!","Please choose one of the servers to edit");
+    }
 }
 
 void Login::add_servers_to_list()
@@ -57,34 +62,52 @@ void Login::on_RemoveServerButton_clicked()
         File::remove_data(ui->ServerListWidget->currentItem()->text());
         ui->ServerListWidget->takeItem(ui->ServerListWidget->row(ui->ServerListWidget->currentItem()));
     }
+    else
+    {
+        QMessageBox message_box;
+        message_box.warning(0,"Wrong data!","Please choose one of the servers to remove");
+    }
 }
 
 void Login::on_ConnectToServerButton_clicked()
 {
     if(ui->ServerListWidget->count() != 0 && ui->ServerListWidget->currentRow() != -1)
     {
-        map<QString, QString> data = File::get_row(ui->ServerListWidget->currentItem()->text());
-        QTcpSocket *socket = new QTcpSocket(this);
-        socket->connectToHost(data["adress"],QString(data["port"]).toInt());
-        if( socket->waitForConnected())
+        if(ui->NicknameEdit->text().count() != 0 &&
+           ui->LoginEdit->text().count() != 0 && ui->PasswordEdit->text().count() != 0)
         {
-            Message_type type = SIGNIN;
-            QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+','+ui->NicknameEdit->text()+','+'\n';
-            qDebug() << message;
-            socket->write(message.toStdString().c_str());
-            socket->waitForBytesWritten();
-            socket->waitForReadyRead();
+            map<QString, QString> data = File::get_row(ui->ServerListWidget->currentItem()->text());
+            QTcpSocket *socket = new QTcpSocket(this);
+            socket->connectToHost(data["adress"],QString(data["port"]).toInt());
+            if( socket->waitForConnected())
+            {
+                int type = Message::Resquest::SIGNIN;
+                QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+','+ui->NicknameEdit->text()+','+'\n';
+                socket->write(message.toStdString().c_str());
+                socket->waitForBytesWritten();
+                socket->waitForReadyRead();
+                int respond = Message::Respond::OK;
+                QString response = socket->readAll();
+                qDebug() << response;
+                if (response.toInt() == respond)
+                {
+                    emit loginAccepted();
+                    socket->close();
+                    this->close();
+                }
+                socket->close();
+            }
         }
-        Message_respond message = OK;
-        QString response = socket->readAll();
-        qDebug() << response;
-        if (response.toInt() == message)
+        else
         {
-            emit loginAccepted();
-            socket->close();
-            this->close();
+            QMessageBox message_box;
+            message_box.warning(0,"Wrong data!","Please provide all data required to connect");
         }
-        socket->close();
+    }
+    else
+    {
+        QMessageBox message_box;
+        message_box.warning(0,"Wrong data!","Please choose one of the servers to establish connection");
     }
 }
 
@@ -100,6 +123,6 @@ void Login::on_RegisterButton_clicked()
     else
     {
         QMessageBox message_box;
-        message_box.critical(0,"No server error!","Please choose server on which you want to register");
+        message_box.warning(0,"No server error!","Please choose server on which you want to register");
     }
 }

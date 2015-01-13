@@ -28,6 +28,8 @@ private slots:
 private:
     map<QString, QString> data;
     Ui::Register *ui;
+
+    bool validate_data();
 };
 
 #endif // REGISTER_H

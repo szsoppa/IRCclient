@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "thread.h"
 #include <QTcpSocket>
 
 QTcpSocket *socket;
@@ -9,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setFixedSize(767,644);
+    setFixedSize(767,675);
+    Thread thread;
 }
 
 MainWindow::~MainWindow()
@@ -17,26 +19,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_SendButton_clicked()
 {
-    socket = new QTcpSocket(this);
-    socket->connectToHost(ui->textLog->toPlainText(),4000);
-    if( socket->waitForConnected(500) )
-    {
-        ui->textLog->append("Connected");
 
-        socket->waitForBytesWritten(10);
-        socket->waitForReadyRead(30);
-
-        ui->textLog->append(socket->readAll());
-    }
-    else
-    {
-        ui->textLog->setText("Not connected");
-    }
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::runThread()
 {
-    socket->close();
+
 }

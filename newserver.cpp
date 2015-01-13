@@ -37,7 +37,7 @@ void NewServer::on_CancelServerButton_clicked()
 bool NewServer::validate_data()
 {
     int counter = 0;
-    QMessageBox messageBox;
+    QMessageBox message_box;
     QString server_address = ui->ServerAdressEdit->text();
 
     for (QString::iterator it=server_address.begin(); it!=server_address.end(); it++)
@@ -48,7 +48,7 @@ bool NewServer::validate_data()
     qDebug() << counter << "   " << server_address.length();
     if (counter != 3 || server_address.length()+1 < 8 || server_address.length()+1 > 16)
     {
-        messageBox.critical(0,"Wrong data!","You have entered wrong server data format");
+        message_box.warning(0,"Wrong data!","You have entered wrong server data format");
         return false;
     }
     return true;

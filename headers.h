@@ -11,6 +11,8 @@
 #include <map>
 #include <QDialog>
 #include <QMessageBox>
+#include <QThread>
+#include <QtCore>
 
 #endif // HEADERS
 

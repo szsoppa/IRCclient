@@ -1,19 +1,34 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-enum Message_type
-{
-    SIGNUP = 0,
-    SIGNIN = 1
-};
+#include "headers.h"
 
-enum Message_respond
+using namespace std;
+
+namespace Message
 {
-    OK = 0,
-    DENY = 1,
-    NICK_TAKEN = 2,
-    WRONG_SIGN_IN_DATA = 3,
-    WRONG_SIGN_UP_DATA = 4
-};
+namespace Resquest
+{
+    extern int SIGNUP;
+    extern int SIGNIN;
+}
+
+namespace Respond
+{
+    extern int OK;
+    extern int DENY;
+}
+
+// commands
+namespace Command
+{
+    extern QString CONNECT;
+    extern QString HELP;
+    extern QString EXIT;
+}
+// methods
+int RecognizeType(QString message);
+vector<QString> ParseMessage(QString message);
+}
 
 #endif // MESSAGE_H
