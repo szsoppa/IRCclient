@@ -6,6 +6,7 @@ namespace Request
 {
     int SIGNUP = 0; // to inform that user want to register
     int SIGNIN = 1; // to infrom that user want to log in
+    int COMMAND = 2; // to inform that message is command
 }
 
 namespace Respond

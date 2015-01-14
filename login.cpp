@@ -88,8 +88,7 @@ void Login::on_ConnectToServerButton_clicked()
                 QString response = socket->readAll();
                 if (response.toInt() == Message::Respond::OK)
                 {
-                    emit loginAccepted(data["adress"],data["port"]);
-                    socket->close();
+                    emit loginAccepted(data["adress"],QString(data["port"]).toInt());
                     this->close();
                 }
                 socket->close();

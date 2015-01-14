@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
 
     Login window1;
     MainWindow window2;
-    QObject::connect(&window1, SIGNAL(loginAccepted(QString, QString)),
-                     &window2, SLOT(showWindow(QString, QString)));
+    QObject::connect(&window1, SIGNAL(loginAccepted(QString, int)),
+                     &window2, SLOT(showWindow(QString, int)));
     window1.show();
-    return a.exec();
+    return a.exec();   
 }

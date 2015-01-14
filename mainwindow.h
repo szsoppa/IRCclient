@@ -20,12 +20,14 @@ public:
 private slots:
     void on_SendButton_clicked();
     void printMessage(QString message);
-    void showWindow(QString adress, QString port);
+    void showWindow(QString adress, int port);
     void checkForMessage();
 
 private:
     Ui::MainWindow *ui;
     QTcpSocket *socket;
+    QString adress;
+    int port;
 };
 
 #endif // MAINWINDOW_H

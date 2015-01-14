@@ -16,6 +16,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_SendButton_clicked()
 {
+    QString message = QString::number(Message::Request::COMMAND) +
+                      ui->MessageEdit->text() + '\n';
+    socket->write(message.toStdString().c_str());
+    socket->waitForBytesWritten();
 }
 
 void MainWindow::printMessage(QString message)
@@ -23,15 +27,17 @@ void MainWindow::printMessage(QString message)
     ui->textLog->append(message);
 }
 
-void MainWindow::showWindow(QString adress, QString port)
+void MainWindow::showWindow(QString adress, int port)
 {
+    this->adress = adress;
+    this->port = port;
     QMessageBox message_box;
     connect(&message_box, SIGNAL(accepted()), this, SLOT(close()));
     socket = new QTcpSocket(this);
-    socket->connectToHost(adress, port.toInt());
-    if (!socket->waitForConnected() )
-        message_box.critical(0,"Error","Disconnected from the server");
-    connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(checkForMessage()));
+    socket->connectToHost(this->adress, this->port);
+    if(!socket->waitForConnected())
+        message_box.critical(0,"Error","Server disconnected");
+    connect(socket, SIGNAL(readyRead()), this, SLOT(checkForMessage()));
     this->show();
 }
 

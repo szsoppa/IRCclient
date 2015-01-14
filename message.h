@@ -11,6 +11,7 @@ namespace Request
 {
     extern int SIGNUP;
     extern int SIGNIN;
+    extern int COMMAND;
 }
 
 namespace Respond
