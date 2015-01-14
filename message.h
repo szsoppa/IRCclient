@@ -7,7 +7,7 @@ using namespace std;
 
 namespace Message
 {
-namespace Resquest
+namespace Request
 {
     extern int SIGNUP;
     extern int SIGNIN;
@@ -15,8 +15,11 @@ namespace Resquest
 
 namespace Respond
 {
-    extern int OK;
     extern int DENY;
+    extern int OK;
+    extern int NICK_TAKEN;
+    extern int WRONG_SIGN_IN_DATA;
+    extern int WRONG_SIGN_UP_DATA;
 }
 
 // commands
@@ -25,6 +28,11 @@ namespace Command
     extern QString CONNECT;
     extern QString HELP;
     extern QString EXIT;
+}
+
+namespace Data
+{
+    extern int WRONG_DATA;
 }
 // methods
 int RecognizeType(QString message);

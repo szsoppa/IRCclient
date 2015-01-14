@@ -21,7 +21,7 @@ public:
     void createNewItem(const QString & name);
 
 signals:
-    void loginAccepted();
+    void loginAccepted(QString adress, QString port);
 
 private slots:
     void on_AddServerButton_clicked();

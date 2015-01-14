@@ -23,7 +23,7 @@ void Register::on_RegisterButton_clicked()
 {
     if (validate_data())
     {
-        int type = Message::Resquest::SIGNUP;
+        int type = Message::Request::SIGNUP;
         QString name = ui->LoginEdit->text();
         QString password = ui->PasswordEdit->text();
         QString password_confirmation = ui->ConfirmPasswordEdit->text();
@@ -36,9 +36,18 @@ void Register::on_RegisterButton_clicked()
             socket->write(message.toStdString().c_str());
             socket->waitForBytesWritten(500);
             socket->waitForReadyRead(500);
+            QString response = socket->readAll();
+            socket->close();
+            if (response.toInt() == Message::Respond::OK)
+            {
+                this->close();
+            }
+            else
+            {
+                QMessageBox message_box;
+                message_box.warning(0,"User already exists!","User already exists!");
+            }
         }
-        socket->close();
-        this->close();
     }
 }
 
@@ -55,6 +64,6 @@ bool Register::validate_data()
         ui->PasswordEdit->text().compare(ui->ConfirmPasswordEdit->text()) == 0)
         return true;
 
-    message_box.critical(0,"Wrong data!","You have entered wrong user data");
+    message_box.warning(0,"Wrong data!","You have entered wrong user data");
     return false;
 }

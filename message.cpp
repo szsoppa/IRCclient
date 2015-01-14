@@ -2,16 +2,24 @@
 
 namespace Message
 {
-namespace Resquest
+namespace Request
 {
-    int SIGNUP = 0;
-    int SIGNIN = 1;
+    int SIGNUP = 0; // to inform that user want to register
+    int SIGNIN = 1; // to infrom that user want to log in
 }
 
 namespace Respond
 {
     int OK = 0;
     int DENY = 1;
+    int NICK_TAKEN = 2;
+    int WRONG_SIGN_IN_DATA = 3;
+    int WRONG_SIGN_UP_DATA = 4;
+}
+
+namespace Data
+{
+    int WRONG_DATA = -1;
 }
 
 // commands
@@ -32,7 +40,7 @@ int RecognizeType(QString message)
         return 1;
     else if (message.compare(Command::EXIT) == 0)
         return 2;
-    else return -1;
+    else return Data::WRONG_DATA;
 }
 
 vector<QString> ParseMessage(QString message)

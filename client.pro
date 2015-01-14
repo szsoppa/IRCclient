@@ -20,8 +20,7 @@ SOURCES += main.cpp\
     editserver.cpp \
     file.cpp \
     register.cpp \
-    message.cpp \
-    thread.cpp
+    message.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
@@ -30,8 +29,7 @@ HEADERS  += mainwindow.h \
     file.h \
     message.h \
     headers.h \
-    register.h \
-    thread.h
+    register.h
 
 FORMS    += mainwindow.ui \
     login.ui \

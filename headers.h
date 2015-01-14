@@ -5,14 +5,13 @@
 #include <QString>
 #include <QCoreApplication>
 #include <QTextStream>
-#include <QTcpSocket>
 #include <QDebug>
 #include <vector>
 #include <map>
 #include <QDialog>
 #include <QMessageBox>
-#include <QThread>
 #include <QtCore>
+#include <QTcpSocket>
 
 #endif // HEADERS
 

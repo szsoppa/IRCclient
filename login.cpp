@@ -2,7 +2,6 @@
 #include "ui_login.h"
 #include "mainwindow.h"
 #include "editserver.h"
-#include <QDebug>
 
 Login::Login(QWidget *parent) :
     QDialog(parent),
@@ -81,17 +80,15 @@ void Login::on_ConnectToServerButton_clicked()
             socket->connectToHost(data["adress"],QString(data["port"]).toInt());
             if( socket->waitForConnected())
             {
-                int type = Message::Resquest::SIGNIN;
+                int type = Message::Request::SIGNIN;
                 QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+','+ui->NicknameEdit->text()+','+'\n';
                 socket->write(message.toStdString().c_str());
                 socket->waitForBytesWritten();
                 socket->waitForReadyRead();
-                int respond = Message::Respond::OK;
                 QString response = socket->readAll();
-                qDebug() << response;
-                if (response.toInt() == respond)
+                if (response.toInt() == Message::Respond::OK)
                 {
-                    emit loginAccepted();
+                    emit loginAccepted(data["adress"],data["port"]);
                     socket->close();
                     this->close();
                 }
