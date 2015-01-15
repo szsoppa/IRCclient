@@ -28,6 +28,7 @@ namespace Command
 {
     QString CONNECT = "connect";
     QString HELP = "help";
+
     QString EXIT = "exit";
 }
 
@@ -55,6 +56,7 @@ vector<QString> ParseMessage(QString message)
             list.push_back(str);
         }
         return list;
+
     }
     list.push_back(message);
     return list;

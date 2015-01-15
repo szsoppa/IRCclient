@@ -45,7 +45,6 @@ bool NewServer::validate_data()
         if(*it == '.')
             counter++;
     }
-    qDebug() << counter << "   " << server_address.length();
     if (counter != 3 || server_address.length()+1 < 8 || server_address.length()+1 > 16)
     {
         message_box.warning(0,"Wrong data!","You have entered wrong server data format");

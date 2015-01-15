@@ -24,6 +24,7 @@ void Register::on_RegisterButton_clicked()
     if (validate_data())
     {
         int type = Message::Request::SIGNUP;
+        QMessageBox message_box;
         QString name = ui->LoginEdit->text();
         QString password = ui->PasswordEdit->text();
         QString password_confirmation = ui->ConfirmPasswordEdit->text();
@@ -44,9 +45,13 @@ void Register::on_RegisterButton_clicked()
             }
             else
             {
-                QMessageBox message_box;
                 message_box.warning(0,"User already exists!","User already exists!");
             }
+        }
+        else
+        {
+            message_box.warning(0,"Server doesn't respond!","Server doesn't respond!");
+            socket->close();
         }
     }
 }

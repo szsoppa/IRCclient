@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_SendButton_clicked()
 {
     QString message = QString::number(Message::Request::COMMAND) +
-                      ui->MessageEdit->text() + '\n';
+                      ui->MessageEdit->text() + ',' + '\n';
     socket->write(message.toStdString().c_str());
     socket->waitForBytesWritten();
 }
