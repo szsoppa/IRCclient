@@ -23,6 +23,8 @@ private slots:
     void showWindow(QString adress, int port, QString);
     void checkForMessage();
 
+    void on_MainWindow_destroyed();
+
 private:
     Ui::MainWindow *ui;
     QTcpSocket *socket;

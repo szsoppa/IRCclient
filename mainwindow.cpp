@@ -92,7 +92,13 @@ void MainWindow::checkForMessage()
     else if(type == Message::ChannelRespond::HELP)
     {
         message.remove(0,1);
-        message.remove('\n');
         ui->textLog->append(message);
     }
+}
+
+void MainWindow::on_MainWindow_destroyed()
+{
+    QString message = QString::number(Message::Command::EXIT) + '\n';
+    socket->write(message.toStdString().c_str());
+    qDebug() << "Wyslane";
 }

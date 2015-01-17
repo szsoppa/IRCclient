@@ -99,6 +99,16 @@ void Login::on_ConnectToServerButton_clicked()
                 }
                 socket->close();
             }
+            else
+            {
+                QMessageBox message_box;
+                message_box.warning(0,"Cannot connect!","Server is not running");
+            }
+        }
+        else
+        {
+            QMessageBox message_box;
+            message_box.warning(0,"Cannot connect!","You didn't provide enough data to connect");
         }
     }
     else
