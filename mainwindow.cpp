@@ -16,8 +16,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_SendButton_clicked()
 {
-    QString message = QString::number(Message::Request::COMMAND) +
-                      ui->MessageEdit->text() + ' ' + this->nickname + ',' + '\n';
+    QString message;
+    QString text = ui->MessageEdit->text();
+    if (text[0] == '\\')
+    {
+        message = QString::number(Message::Request::COMMAND) +
+                          ui->MessageEdit->text() + ' ' + this->nickname + ',' + '\n';
+    }
+    else
+    {
+        message = QString::number(Message::Request::COMMAND) +
+                          ui->MessageEdit->text() + '\n';
+    }
     socket->write(message.toStdString().c_str());
     socket->waitForBytesWritten();
     qDebug() << "Wysylam wiadomosc: " << message;
@@ -72,5 +82,17 @@ void MainWindow::checkForMessage()
     else if (type == Message::ChannelRespond::EXIT)
     {
         this->close();
+    }
+    else if (type == Message::ChannelRespond::MESSAGE)
+    {
+        message.remove(0,1);
+        message.remove('\n');
+        ui->textLog->append(message);
+    }
+    else if(type == Message::ChannelRespond::HELP)
+    {
+        message.remove(0,1);
+        message.remove('\n');
+        ui->textLog->append(message);
     }
 }
