@@ -54,10 +54,11 @@ void MainWindow::checkForMessage()
     {
         message.remove(0,1);
         message.remove('\n');
-        ui->textLog->setText("Welcome in " + temp + " channel!\nHave a good time! ;)");
+        ui->textLog->setText("Welcome in " + message + " channel!\nHave a good time! ;)");
     }
     else if (type == Message::ChannelRespond::LIST)
     {
+        ui->UserList->clear();
         message.remove(0,1);
         vector<QString> list = Message::GenerateList(message);
         for (int i=0; i<list.size(); i++)

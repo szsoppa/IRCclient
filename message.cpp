@@ -73,8 +73,8 @@ vector<QString> ParseMessage(QString message)
 
 vector<QString> GenerateList(QString message)
 {
-    vector<string> list;
-    string temp;
+    vector<QString> list;
+    QString temp;
     for (QString::iterator it=message.begin(); it!=message.end(); ++it)
     {
         if(*it == ',')
