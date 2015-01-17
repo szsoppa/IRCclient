@@ -16,19 +16,30 @@ namespace Request
 
 namespace Respond
 {
-    extern int DENY;
-    extern int OK;
-    extern int NICK_TAKEN;
-    extern int WRONG_SIGN_IN_DATA;
-    extern int WRONG_SIGN_UP_DATA;
+    extern const int DENY;
+    extern const int OK;
+    extern const int NICK_TAKEN;
+    extern const int WRONG_SIGN_IN_DATA;
+    extern const int WRONG_SIGN_UP_DATA;
+}
+
+namespace ChannelRespond
+{
+    extern const int ACCEPT;
+    extern const int DENY;
+    extern const int HELP;
+    extern const int EXIT;
+    extern const int LIST;
+    extern const int MESSAGE;
 }
 
 // commands
 namespace Command
 {
-    extern QString CONNECT;
-    extern QString HELP;
-    extern QString EXIT;
+    extern const int CONNECT;
+    extern const int HELP;
+    extern const int EXIT;
+    extern const int CHANNEL;
 }
 
 namespace Data

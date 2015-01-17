@@ -4,18 +4,28 @@ namespace Message
 {
 namespace Request
 {
-    int SIGNUP = 0; // to inform that user want to register
-    int SIGNIN = 1; // to infrom that user want to log in
-    int COMMAND = 2; // to inform that message is command
+    int SIGNUP = 0;
+    int SIGNIN = 1;
+    int COMMAND = 2;
 }
 
 namespace Respond
 {
-    int OK = 0;
-    int DENY = 1;
-    int NICK_TAKEN = 2;
-    int WRONG_SIGN_IN_DATA = 3;
-    int WRONG_SIGN_UP_DATA = 4;
+    const int OK = 0;
+    const int DENY = 1;
+    const int NICK_TAKEN = 2;
+    const int WRONG_SIGN_IN_DATA = 3;
+    const int WRONG_SIGN_UP_DATA = 4;
+}
+
+namespace ChannelRespond
+{
+    const int ACCEPT = 0;
+    const int  DENY = 1;
+    const int HELP = 2;
+    const int EXIT = 3;
+    const int LIST = 4;
+    const int MESSAGE = 5;
 }
 
 namespace Data
@@ -26,21 +36,20 @@ namespace Data
 // commands
 namespace Command
 {
-    QString CONNECT = "connect";
-    QString HELP = "help";
-
-    QString EXIT = "exit";
+    const int CONNECT = 0;
+    const int HELP = 1;
+    const int EXIT = 2;
+    const int CHANNEL = 3;
 }
-
 
 // methods
 int RecognizeType(QString message)
 {
-    if (message.compare(Command::CONNECT) == 0)
+    if (message.compare("connect") == 0)
         return 0;
-    else if (message.compare(Command::HELP) == 0)
+    else if (message.compare("help") == 0)
         return 1;
-    else if (message.compare(Command::EXIT) == 0)
+    else if (message.compare("exit") == 0)
         return 2;
     else return Data::WRONG_DATA;
 }

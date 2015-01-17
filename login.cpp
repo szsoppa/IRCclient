@@ -80,6 +80,7 @@ void Login::on_ConnectToServerButton_clicked()
             socket->connectToHost(data["adress"],QString(data["port"]).toInt());
             if( socket->waitForConnected())
             {
+                qDebug() << socket->socketDescriptor();
                 int type = Message::Request::SIGNIN;
                 QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+','+ui->NicknameEdit->text()+','+'\n';
                 socket->write(message.toStdString().c_str());
@@ -88,16 +89,16 @@ void Login::on_ConnectToServerButton_clicked()
                 QString response = socket->readAll();
                 if (response.toInt() == Message::Respond::OK)
                 {
-                    emit loginAccepted(data["adress"],QString(data["port"]).toInt());
+                    emit loginAccepted(data["adress"],QString(data["port"]).toInt(), ui->LoginEdit->text());
                     this->close();
+                }
+                else
+                {
+                    QMessageBox message_box;
+                    message_box.warning(0,"Cannot connect!","User already logged in or your nickname is not unique");
                 }
                 socket->close();
             }
-        }
-        else
-        {
-            QMessageBox message_box;
-            message_box.warning(0,"Wrong data!","Please provide all data required to connect");
         }
     }
     else

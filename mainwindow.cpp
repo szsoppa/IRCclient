@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_SendButton_clicked()
 {
     QString message = QString::number(Message::Request::COMMAND) +
-                      ui->MessageEdit->text() + ',' + '\n';
+                      ui->MessageEdit->text() + ' ' + this->nickname + ',' + '\n';
     socket->write(message.toStdString().c_str());
     socket->waitForBytesWritten();
 }
@@ -27,8 +27,9 @@ void MainWindow::printMessage(QString message)
     ui->textLog->append(message);
 }
 
-void MainWindow::showWindow(QString adress, int port)
+void MainWindow::showWindow(QString adress, int port, QString nickname)
 {
+    this->nickname = nickname;
     this->adress = adress;
     this->port = port;
     QMessageBox message_box;
@@ -44,5 +45,6 @@ void MainWindow::showWindow(QString adress, int port)
 void MainWindow::checkForMessage()
 {
     QString message = socket->readAll();
+
     ui->textLog->append(message);
 }
