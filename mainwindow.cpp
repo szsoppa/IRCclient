@@ -91,12 +91,15 @@ void MainWindow::checkForMessage()
         QStringList list = message.split(",");
         QString nickname = list[0];
         message.remove(0,nickname.length()+1);
-        message = time.currentTime().toString("hh:mm:ss") + " " + nickname + ": " + list[1];
+        message = "[" + time.currentTime().toString("hh:mm:ss") + "]" + "  " +
+                  "<@" + nickname + "> " + ": " + message;
         ui->textLog->append(message);
     }
     else if(type == Message::ChannelRespond::HELP)
     {
         message.remove(0,1);
+        message = "**************************\n" + message +
+                  "**************************";
         ui->textLog->append(message);
     }
 }
