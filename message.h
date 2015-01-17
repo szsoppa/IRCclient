@@ -49,6 +49,7 @@ namespace Data
 // methods
 int RecognizeType(QString message);
 vector<QString> ParseMessage(QString message);
+vector<QString> GenerateList(QString message);
 }
 
 #endif // MESSAGE_H

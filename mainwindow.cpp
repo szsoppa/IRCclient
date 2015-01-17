@@ -45,6 +45,25 @@ void MainWindow::showWindow(QString adress, int port, QString nickname)
 void MainWindow::checkForMessage()
 {
     QString message = socket->readAll();
+    qDebug() << "Wiadomosc: " << message;
+    QString temp = message;
+    temp.remove(1,message.length()-1);
+    int type = temp.toInt();
 
-    ui->textLog->append(message);
+    if(type == Message::ChannelRespond::ACCEPT)
+    {
+        message.remove(0,1);
+        message.remove('\n');
+        ui->textLog->setText("Welcome in " + temp + " channel!\nHave a good time! ;)");
+    }
+    else if (type == Message::ChannelRespond::LIST)
+    {
+        message.remove(0,1);
+        vector<QString> list = Message::GenerateList(message);
+        for (int i=0; i<list.size(); i++)
+        {
+            if (this->nickname.compare(list[i]) != 0)
+                ui->UserList->addItem(list[i]);
+        }
+    }
 }
