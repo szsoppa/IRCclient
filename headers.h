@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QtCore>
 #include <QTcpSocket>
+#include <QTime>
 
 #endif // HEADERS
 

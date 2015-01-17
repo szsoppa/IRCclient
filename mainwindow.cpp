@@ -87,6 +87,11 @@ void MainWindow::checkForMessage()
     {
         message.remove(0,1);
         message.remove('\n');
+        QTime time;
+        QStringList list = message.split(",");
+        QString nickname = list[0];
+        message.remove(0,nickname.length()+1);
+        message = time.currentTime().toString("hh:mm:ss") + " " + nickname + ": " + list[1];
         ui->textLog->append(message);
     }
     else if(type == Message::ChannelRespond::HELP)
