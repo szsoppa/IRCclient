@@ -20,6 +20,7 @@ void MainWindow::on_SendButton_clicked()
                       ui->MessageEdit->text() + ' ' + this->nickname + ',' + '\n';
     socket->write(message.toStdString().c_str());
     socket->waitForBytesWritten();
+    qDebug() << "Wysylam wiadomosc: " << message;
 }
 
 void MainWindow::printMessage(QString message)
@@ -61,10 +62,15 @@ void MainWindow::checkForMessage()
         ui->UserList->clear();
         message.remove(0,1);
         vector<QString> list = Message::GenerateList(message);
+        qDebug() << "Rozmiar listy: " << list.size();
         for (int i=0; i<list.size(); i++)
         {
             if (this->nickname.compare(list[i]) != 0)
                 ui->UserList->addItem(list[i]);
         }
+    }
+    else if (type == Message::ChannelRespond::EXIT)
+    {
+        this->close();
     }
 }
