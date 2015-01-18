@@ -28,7 +28,12 @@ void MainWindow::on_SendButton_clicked()
         message = QString::number(Message::Request::COMMAND) +
                           ui->MessageEdit->text() + '\n';
     }
-    socket->write(message.toStdString().c_str());
+    if (socket->write(message.toStdString().c_str()) == -1)
+    {
+        QMessageBox message_box;
+        message_box.critical(0,"Server error","You have been disconnected from the server");
+        this->close();
+    }
     socket->waitForBytesWritten();
     qDebug() << "Wysylam wiadomosc: " << message;
 }
@@ -44,12 +49,15 @@ void MainWindow::showWindow(QString adress, int port, QString nickname)
     this->adress = adress;
     this->port = port;
     QMessageBox message_box;
-    connect(&message_box, SIGNAL(accepted()), this, SLOT(close()));
     socket = new QTcpSocket(this);
     socket->connectToHost(this->adress, this->port);
     if(!socket->waitForConnected())
-        message_box.critical(0,"Error","Server disconnected");
+    {
+        message_box.critical(0,"Server error","Server disconnected");
+        this->close();
+    }
     connect(socket, SIGNAL(readyRead()), this, SLOT(checkForMessage()));
+    connect(ui->MessageEdit, SIGNAL(returnPressed()), ui->SendButton, SIGNAL(clicked()));
     this->show();
 }
 
@@ -109,4 +117,14 @@ void MainWindow::on_MainWindow_destroyed()
     QString message = QString::number(Message::Command::EXIT) + '\n';
     socket->write(message.toStdString().c_str());
     qDebug() << "Wyslane";
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QString message;
+    message = QString::number(Message::Request::COMMAND) +
+                      "\\exit" + ' ' + this->nickname + ',' + '\n';
+    qDebug() << message;
+    socket->write(message.toStdString().c_str());
+    this->close();
 }
