@@ -61,7 +61,7 @@ void MainWindow::showWindow(QString adress, int port, QString nickname)
     this->show();
 }
 
-void MainWindow::checkForMessage()
+int MainWindow::checkForMessage()
 {
     QString message = socket->readAll();
     qDebug() << "Wiadomosc: " << message;
@@ -95,10 +95,16 @@ void MainWindow::checkForMessage()
     {
         message.remove(0,1);
         message.remove('\n');
+        QString pattern = QString("$").append(this->nickname);
         QTime time;
         QStringList list = message.split(",");
         QString nickname = list[0];
         message.remove(0,nickname.length()+1);
+        if (!message.contains(pattern) && message[0] == '$')
+        {
+            qDebug() << "WESZLO";
+            return 0;
+        }
         message = "[" + time.currentTime().toString("hh:mm:ss") + "]" + "  " +
                   "<@" + nickname + "> " + ": " + message;
         ui->textLog->append(message);
@@ -126,5 +132,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
                       "\\exit" + ' ' + this->nickname + ',' + '\n';
     qDebug() << message;
     socket->write(message.toStdString().c_str());
+    socket->waitForBytesWritten();
     this->close();
 }

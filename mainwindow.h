@@ -22,7 +22,7 @@ private slots:
     void on_SendButton_clicked();
     void printMessage(QString message);
     void showWindow(QString adress, int port, QString);
-    void checkForMessage();
+    int checkForMessage();
 
     void on_MainWindow_destroyed();
 
