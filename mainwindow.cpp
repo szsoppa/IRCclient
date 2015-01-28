@@ -35,7 +35,6 @@ void MainWindow::on_SendButton_clicked()
         this->close();
     }
     socket->waitForBytesWritten();
-    qDebug() << "Wysylam wiadomosc: " << message;
 }
 
 void MainWindow::printMessage(QString message)
@@ -64,7 +63,6 @@ void MainWindow::showWindow(QString adress, int port, QString nickname)
 int MainWindow::checkForMessage()
 {
     QString message = socket->readAll();
-    qDebug() << "Wiadomosc: " << message;
     QString temp = message;
     temp.remove(1,message.length()-1);
     int type = temp.toInt();
@@ -80,7 +78,6 @@ int MainWindow::checkForMessage()
         ui->UserList->clear();
         message.remove(0,1);
         vector<QString> list = Message::GenerateList(message);
-        qDebug() << "Rozmiar listy: " << list.size();
         for (int i=0; i<list.size(); i++)
         {
             if (this->nickname.compare(list[i]) != 0)
@@ -102,7 +99,6 @@ int MainWindow::checkForMessage()
         message.remove(0,nickname.length()+1);
         if (!message.contains(pattern) && message[0] == '$')
         {
-            qDebug() << "WESZLO";
             return 0;
         }
         message = "[" + time.currentTime().toString("hh:mm:ss") + "]" + "  " +
@@ -122,7 +118,6 @@ void MainWindow::on_MainWindow_destroyed()
 {
     QString message = QString::number(Message::Command::EXIT) + '\n';
     socket->write(message.toStdString().c_str());
-    qDebug() << "Wyslane";
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -130,7 +125,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QString message;
     message = QString::number(Message::Request::COMMAND) +
                       "\\exit" + ' ' + this->nickname + ',' + '\n';
-    qDebug() << message;
     socket->write(message.toStdString().c_str());
     socket->waitForBytesWritten();
     this->close();

@@ -80,7 +80,6 @@ void Login::on_ConnectToServerButton_clicked()
             socket->connectToHost(data["adress"],QString(data["port"]).toInt());
             if( socket->waitForConnected())
             {
-                qDebug() << socket->socketDescriptor();
                 int type = Message::Request::SIGNIN;
                 QString message = QString::number(type)+ui->LoginEdit->text()+','+ui->PasswordEdit->text()+','+ui->NicknameEdit->text()+','+'\n';
                 socket->write(message.toStdString().c_str());
